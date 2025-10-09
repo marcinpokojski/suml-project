@@ -1,0 +1,5 @@
+wywalic patient_id
+zamienic pack_years na int i podzielic na przedzialy
+asbeston exposure na binarne
+copd_diagnosis zamienic na binarne
+famil_history zamienic na binarne
