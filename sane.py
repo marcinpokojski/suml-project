@@ -11,15 +11,16 @@ if 'patient_id' in df.columns:
     df = df.drop(columns=['patient_id'])
     print("Usunięto kolumnę 'patient_id'")
 
-#konwersja pack_years na int i podzial na przedzialy
+#konwersja pack_years na int
 if 'pack_years' in df.columns:
 
     df['pack_years'] = pd.to_numeric(df['pack_years'], errors='coerce')
     df['pack_years'] = df['pack_years'].fillna(0).astype(int)
-#
-#     bins = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, np.inf]
-#     labels = ['0-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31-35', '36-40', '41-45', '46-50', '50+']
-#     df['pack_years_group'] = pd.cut(df['pack_years'], bins=bins, labels=labels, right=True)
+
+#przedzialy wiekowe
+    # bins = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, np.inf]
+    # labels = ['0-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31-35', '36-40', '41-45', '46-50', '50+']
+    # df['pack_years_group'] = pd.cut(df['pack_years'], bins=bins, labels=labels, right=True)
 
 #zamiana danych na binarne w przypadku yes/no dla kolumn asbestos_exposure, copd_diagnosis,family_history
 binary_mappings = {
@@ -27,7 +28,6 @@ binary_mappings = {
     'copd_diagnosis': {'yes': 1, 'no': 0},
     'family_history': {'yes': 1, 'no': 0},
     'secondhand_smoke_exposure': {'yes': 1, 'no': 0},
-    'lung_cancer': {'yes': 1, 'no': 0},
     'lung_cancer': {'yes': 1, 'no': 0},
 
 }
@@ -62,7 +62,7 @@ df['radon_exposure'] = df['radon_exposure'].map(mapping)
 
 df['radon_exposure'] = df['radon_exposure'].fillna(0).astype(int)
 
-##analiza rozkladu cech
+#analiza rozkladu cech
 
 # Rozkład wieku pacjentów
 sns.histplot(df['age'], kde=True)
@@ -90,6 +90,8 @@ plt.title('Zależność między wiekiem a rakiem płuc')
 plt.xlabel('Lung Cancer (0 = brak, 1 = tak)')
 plt.ylabel('Wiek')
 plt.show()
+
+#ew wyrownanie lung_cancer
 
 
 
